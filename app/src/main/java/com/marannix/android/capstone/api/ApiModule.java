@@ -18,8 +18,15 @@ public class ApiModule {
     return retrofit.create(MovieApi.class);
   }
 
+  GenresApi provideGenresApi(Retrofit retrofit) {
+    return retrofit.create(GenresApi.class);
+  }
+
   public MovieApi movieApi() {
     return provideMovieApi(provideRetrofit());
   }
 
+  public GenresApi genresApi() {
+    return provideGenresApi(provideRetrofit());
+  }
 }
