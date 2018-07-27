@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
-// TODO: Maybe use Movie instead rather than
+// TODO: Maybe use Movie instead rather than Discover
 public class Discover implements Parcelable {
 
   private int id;

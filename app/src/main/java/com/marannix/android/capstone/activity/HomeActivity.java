@@ -1,9 +1,9 @@
-package com.marannix.android.capstone;
+package com.marannix.android.capstone.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.marannix.android.capstone.R;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
