@@ -34,5 +34,4 @@ public interface MovieApi {
 
   @GET("movie/{id}/credits?" + authentication) Call<CreditsResponse> getCreditResponse();
 
-  //Now playing movies
 }

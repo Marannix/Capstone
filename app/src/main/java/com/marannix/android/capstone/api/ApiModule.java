@@ -22,11 +22,19 @@ public class ApiModule {
     return retrofit.create(GenresApi.class);
   }
 
+  DiscoverApi provideDiscover(Retrofit retrofit) {
+    return retrofit.create(DiscoverApi.class);
+  }
+
   public MovieApi movieApi() {
     return provideMovieApi(provideRetrofit());
   }
 
   public GenresApi genresApi() {
     return provideGenresApi(provideRetrofit());
+  }
+
+  public DiscoverApi discoverApi() {
+    return provideDiscover(provideRetrofit());
   }
 }

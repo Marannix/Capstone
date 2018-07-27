@@ -8,4 +8,11 @@ public class CreditsResponse {
   private int id;
   private List<Cast> castList;
 
+  public int getId() {
+    return id;
+  }
+
+  public List<Cast> getCastList() {
+    return castList;
+  }
 }
