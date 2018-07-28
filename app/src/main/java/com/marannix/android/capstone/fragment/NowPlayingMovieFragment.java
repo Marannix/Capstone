@@ -12,68 +12,65 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.marannix.android.capstone.R;
-import com.marannix.android.capstone.adapter.UpcomingMovieAdapter;
-import com.marannix.android.capstone.data.model.Movie;
+import com.marannix.android.capstone.adapter.NowPlayingMovieAdapter;
+import com.marannix.android.capstone.data.model.NowPlayingMovies;
 import com.marannix.android.capstone.repository.MovieRepository;
-import com.marannix.android.capstone.response.MovieResponse;
+import com.marannix.android.capstone.response.NowPlayingResponse;
 import java.util.List;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-//TODO Saturday, call fragment and pass it the list of upcoming movies
-public class UpcomingMovieFragment extends Fragment {
+public class NowPlayingMovieFragment extends Fragment {
 
-  @BindView(R.id.upcomingMovieRecyclerView) RecyclerView recyclerView;
+  @BindView(R.id.now_playing_recycler_View) RecyclerView recyclerView;
 
   private MovieRepository movieRepository;
-  private List<Movie> upcomingMoviesList;
+  private List<NowPlayingMovies> nowPlayingMoviesList;
 
-  public UpcomingMovieFragment() {
+  public NowPlayingMovieFragment() {
   }
-
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    View rootView = inflater.inflate(R.layout.fragment_upcoming_movies_page, container, false);
+    View rootView = inflater.inflate(R.layout.fragment_now_playing_movies, container, false);
     ButterKnife.bind(this, rootView);
     movieRepository = new MovieRepository();
     movieRepository.initApiModule();
-    retrieveUpcomingMovies();
-    initUpcomingMovieAdapter();
+    retrieveNowPlayingMovies();
+    initAdapter();
     return rootView;
   }
 
-  public static UpcomingMovieFragment newUpcomingMovieInstance() {
-    return new UpcomingMovieFragment();
+  public static NowPlayingMovieFragment nowPlayingMovieInstance() {
+    return new NowPlayingMovieFragment();
   }
 
-  private void initUpcomingMovieAdapter() {
+  private void initAdapter() {
     GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setHasFixedSize(true);
 
-    UpcomingMovieAdapter upcomingMovieAdapter =
-        new UpcomingMovieAdapter(getContext(), upcomingMoviesList);
-    recyclerView.setAdapter(upcomingMovieAdapter);
+    NowPlayingMovieAdapter adapter = new NowPlayingMovieAdapter(getContext(), nowPlayingMoviesList);
+    recyclerView.setAdapter(adapter);
   }
 
-  private void retrieveUpcomingMovies() {
-    movieRepository.fetchUpcomingMovies()
+  private void retrieveNowPlayingMovies() {
+    movieRepository.fetchNowPlayingMovies()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Subscriber<MovieResponse>() {
+        .subscribe(new Subscriber<NowPlayingResponse>() {
           @Override public void onCompleted() {
-            initUpcomingMovieAdapter();
+            initAdapter();
           }
 
           @Override public void onError(Throwable e) {
-            //TODO Show error message
+
           }
 
-          @Override public void onNext(MovieResponse upcomingResponse) {
-            upcomingMoviesList = upcomingResponse.getMovies();
+          @Override public void onNext(NowPlayingResponse nowPlayingResponse) {
+            nowPlayingMoviesList = nowPlayingResponse.getResults();
           }
         });
   }

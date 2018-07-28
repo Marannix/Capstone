@@ -3,12 +3,13 @@ package com.marannix.android.capstone.activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.marannix.android.capstone.R;
 import com.marannix.android.capstone.adapter.HomeMoviePageAdapter;
 import com.marannix.android.capstone.data.model.Movie;
+import com.marannix.android.capstone.data.model.NowPlayingMovies;
+import com.marannix.android.capstone.fragment.NowPlayingMovieFragment;
 import com.marannix.android.capstone.fragment.UpcomingMovieFragment;
 import com.marannix.android.capstone.repository.MovieRepository;
 import com.marannix.android.capstone.response.MovieResponse;
@@ -28,7 +29,10 @@ public class HomeActivity extends BaseActivity {
   @BindView(R.id.viewPager) ViewPager viewPager;
 
   private UpcomingMovieFragment upcomingMovieFragment;
+  private NowPlayingMovieFragment nowPlayingMovieFragment;
+
   private List<Movie> upcomingMoviesList;
+  private List<NowPlayingMovies> nowPlayingMoviesList;
   private HomeMoviePageAdapter homeMoviePageAdapter;
   private MovieRepository movieRepository;
 
@@ -37,7 +41,9 @@ public class HomeActivity extends BaseActivity {
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this, getViewGroup());
     initMovieRepository();
-    retrieveUpcomingMovies();
+    initView();
+    //retrieveUpcomingMovies();
+    //retrieveNowPlayingMovies();
   }
 
   private void initMovieRepository() {
@@ -47,35 +53,58 @@ public class HomeActivity extends BaseActivity {
 
   private void initPagerFragments() {
     initUpcomingMovieFragment();
+    initNowPlayingMovieFragment();
   }
 
   private void initUpcomingMovieFragment() {
-    upcomingMovieFragment = UpcomingMovieFragment.newIngredientsInstance(
-        (ArrayList<Movie>) upcomingMoviesList);
-    homeMoviePageAdapter.addFragment(upcomingMovieFragment, "Upcoming Movies");
+    upcomingMovieFragment =
+        UpcomingMovieFragment.newUpcomingMovieInstance();
+    homeMoviePageAdapter.addFragment(upcomingMovieFragment, "Latest");
   }
 
-  private void retrieveUpcomingMovies() {
-    movieRepository.fetchUpcomingMovies()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Subscriber<MovieResponse>() {
-          @Override public void onCompleted() {
-           initView();
-          }
-
-          @Override public void onError(Throwable e) {
-            //TODO Show error message
-          }
-
-          @Override public void onNext(MovieResponse upcomingResponse) {
-            upcomingMoviesList = upcomingResponse.getMovies();
-            for (int i = 0; i < upcomingMoviesList.size(); i++) {
-              Log.d("Joshua1", "onNext: " + upcomingMoviesList.get(i).getTitle());
-            }
-          }
-        });
+  private void initNowPlayingMovieFragment() {
+    nowPlayingMovieFragment =
+        NowPlayingMovieFragment.nowPlayingMovieInstance();
+    homeMoviePageAdapter.addFragment(nowPlayingMovieFragment, "Now Playing");
   }
+
+  //private void retrieveUpcomingMovies() {
+  //  movieRepository.fetchUpcomingMovies()
+  //      .subscribeOn(Schedulers.io())
+  //      .observeOn(AndroidSchedulers.mainThread())
+  //      .subscribe(new Subscriber<MovieResponse>() {
+  //        @Override public void onCompleted() {
+  //          initView();
+  //        }
+  //
+  //        @Override public void onError(Throwable e) {
+  //          //TODO Show error message
+  //        }
+  //
+  //        @Override public void onNext(MovieResponse upcomingResponse) {
+  //          upcomingMoviesList = upcomingResponse.getMovies();
+  //        }
+  //      });
+  //}
+
+  //private void retrieveNowPlayingMovies() {
+  //  movieRepository.fetchNowPlayingMovies()
+  //      .subscribeOn(Schedulers.io())
+  //      .observeOn(AndroidSchedulers.mainThread())
+  //      .subscribe(new Subscriber<NowPlayingResponse>() {
+  //        @Override public void onCompleted() {
+  //
+  //        }
+  //
+  //        @Override public void onError(Throwable e) {
+  //
+  //        }
+  //
+  //        @Override public void onNext(NowPlayingResponse nowPlayingResponse) {
+  //          nowPlayingMoviesList = nowPlayingResponse.getResults();
+  //        }
+  //      });
+  //}
 
   private void initView() {
     homeMoviePageAdapter = new HomeMoviePageAdapter(getSupportFragmentManager());

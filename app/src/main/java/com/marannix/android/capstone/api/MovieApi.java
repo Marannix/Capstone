@@ -33,7 +33,7 @@ public interface MovieApi {
       @Path("id") int id);
 
   //TODO CHANGE TO MOVIERESPONSE
-  @GET("movie/now_playing?" + authentication) Call<NowPlayingResponse> getNowPlayingResponse();
+  @GET("movie/now_playing?" + authentication) Observable<NowPlayingResponse> getNowPlayingResponse();
 
   @GET("movie/{id}/credits?" + authentication) Call<CreditsResponse> getCreditResponse();
 

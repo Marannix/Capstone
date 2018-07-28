@@ -36,7 +36,6 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
   @Override public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     final Movie upcomingMovie = upcomingMovies.get(position);
     final String path = movieUrl + phoneSize + upcomingMovie.getPosterPath();
-    // TODO add picasso
 
     Picasso.get().load(path).into(holder.image);
     holder.title.setText(upcomingMovie.getTitle());
@@ -44,7 +43,7 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         // TODO: Take to movie activity
-        Log.d("Joshua1", "onClick: I've been clicked");
+        Log.d("Joshua1", "onClick: I've been clicked, UpComing");
       }
     });
   }
