@@ -9,6 +9,7 @@ import com.marannix.android.capstone.response.VideoResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import rx.Observable;
 
 public interface MovieApi {
 
@@ -22,14 +23,18 @@ public interface MovieApi {
 
   @GET("movie/top_rated?" + authentication) Call<MovieResponse> getTopRatedMovies();
 
-  @GET("movie/{id}/reviews?" + authentication) Call<ReviewResponse> getMovieReviews(
-      @Path("id") int id);
 
   @GET("movie/{id}/videos?" + authentication) Call<VideoResponse> getMovieVideos(
       @Path("id") int id);
 
-  @GET("movie/upcoming?" + authentication) Call<UpcomingResponse> getUpcomingResponse();
+  //TODO CHANGE TO MOVIERESPONSE
+  @GET("movie/upcoming?" + authentication) Observable<UpcomingResponse> getUpcomingResponse();
 
+
+  @GET("movie/{id}/reviews?" + authentication) Call<ReviewResponse> getMovieReviews(
+      @Path("id") int id);
+
+  //TODO CHANGE TO MOVIERESPONSE
   @GET("movie/now_playing?" + authentication) Call<NowPlayingResponse> getNowPlayingResponse();
 
   @GET("movie/{id}/credits?" + authentication) Call<CreditsResponse> getCreditResponse();

@@ -7,7 +7,7 @@ public class UpcomingResponse {
 
   public List<UpcomingMovies> results;
 
-  public List<UpcomingMovies> getResults() {
+  public List<UpcomingMovies> getUpcomingMovies() {
     return results;
   }
 }
