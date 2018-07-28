@@ -1,7 +1,7 @@
 package com.marannix.android.capstone.repository;
 
 import com.marannix.android.capstone.api.ApiModule;
-import com.marannix.android.capstone.response.UpcomingResponse;
+import com.marannix.android.capstone.response.MovieResponse;
 import rx.Observable;
 
 public class MovieRepository {
@@ -12,7 +12,7 @@ public class MovieRepository {
     apiModule = new ApiModule();
   }
 
-  public Observable<UpcomingResponse> fetchUpcomingMovies() {
+  public Observable<MovieResponse> fetchUpcomingMovies() {
     return apiModule.movieApi().getUpcomingResponse();
   }
 }

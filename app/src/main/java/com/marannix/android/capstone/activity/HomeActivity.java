@@ -8,10 +8,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.marannix.android.capstone.R;
 import com.marannix.android.capstone.adapter.HomeMoviePageAdapter;
-import com.marannix.android.capstone.data.model.UpcomingMovies;
+import com.marannix.android.capstone.data.model.Movie;
 import com.marannix.android.capstone.fragment.UpcomingMovieFragment;
 import com.marannix.android.capstone.repository.MovieRepository;
-import com.marannix.android.capstone.response.UpcomingResponse;
+import com.marannix.android.capstone.response.MovieResponse;
 import java.util.ArrayList;
 import java.util.List;
 import rx.Subscriber;
@@ -28,7 +28,7 @@ public class HomeActivity extends BaseActivity {
   @BindView(R.id.viewPager) ViewPager viewPager;
 
   private UpcomingMovieFragment upcomingMovieFragment;
-  private List<UpcomingMovies> upcomingMoviesList;
+  private List<Movie> upcomingMoviesList;
   private HomeMoviePageAdapter homeMoviePageAdapter;
   private MovieRepository movieRepository;
 
@@ -51,7 +51,7 @@ public class HomeActivity extends BaseActivity {
 
   private void initUpcomingMovieFragment() {
     upcomingMovieFragment = UpcomingMovieFragment.newIngredientsInstance(
-        (ArrayList<UpcomingMovies>) upcomingMoviesList);
+        (ArrayList<Movie>) upcomingMoviesList);
     homeMoviePageAdapter.addFragment(upcomingMovieFragment, "Upcoming Movies");
   }
 
@@ -59,7 +59,7 @@ public class HomeActivity extends BaseActivity {
     movieRepository.fetchUpcomingMovies()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Subscriber<UpcomingResponse>() {
+        .subscribe(new Subscriber<MovieResponse>() {
           @Override public void onCompleted() {
            initView();
           }
@@ -68,8 +68,8 @@ public class HomeActivity extends BaseActivity {
             //TODO Show error message
           }
 
-          @Override public void onNext(UpcomingResponse upcomingResponse) {
-            upcomingMoviesList = upcomingResponse.getUpcomingMovies();
+          @Override public void onNext(MovieResponse upcomingResponse) {
+            upcomingMoviesList = upcomingResponse.getMovies();
             for (int i = 0; i < upcomingMoviesList.size(); i++) {
               Log.d("Joshua1", "onNext: " + upcomingMoviesList.get(i).getTitle());
             }

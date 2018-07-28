@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.marannix.android.capstone.R;
 import com.marannix.android.capstone.adapter.UpcomingMovieAdapter;
+import com.marannix.android.capstone.data.model.Movie;
 import com.marannix.android.capstone.data.model.UpcomingMovies;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class UpcomingMovieFragment extends Fragment {
   @BindView(R.id.upcomingMovieRecyclerView) RecyclerView recyclerView;
 
   private static final String UPCOMING_LIST = "upcoming";
-  private List<UpcomingMovies> upcomingMovies;
+  private List<Movie> upcomingMovies;
 
   public UpcomingMovieFragment() {
   }
@@ -44,7 +45,7 @@ public class UpcomingMovieFragment extends Fragment {
     return rootView;
   }
 
-  public static UpcomingMovieFragment newIngredientsInstance(ArrayList<UpcomingMovies> ingredients) {
+  public static UpcomingMovieFragment newIngredientsInstance(ArrayList<Movie> ingredients) {
     UpcomingMovieFragment upcomingMovieFragment = new UpcomingMovieFragment();
     Bundle args = new Bundle();
     args.putParcelableArrayList(UPCOMING_LIST, ingredients);
