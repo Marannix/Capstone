@@ -23,7 +23,6 @@ public interface MovieApi {
 
   @GET("movie/top_rated?" + authentication) Call<MovieResponse> getTopRatedMovies();
 
-
   @GET("movie/{id}/videos?" + authentication) Call<VideoResponse> getMovieVideos(
       @Path("id") int id);
 

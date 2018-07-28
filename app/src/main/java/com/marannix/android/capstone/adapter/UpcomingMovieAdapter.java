@@ -13,12 +13,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.marannix.android.capstone.R;
 import com.marannix.android.capstone.data.model.UpcomingMovies;
+import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdapter.ViewHolder> {
 
   private Context context;
   private List<UpcomingMovies> upcomingMovies;
+  private String movieUrl = "https://image.tmdb.org/t/p/";
+  private String phoneSize = "w500";
 
   public UpcomingMovieAdapter(Context context, List<UpcomingMovies> upcomingMovies) {
     this.context = context;
@@ -32,7 +35,10 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
 
   @Override public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     final UpcomingMovies upcomingMovie = upcomingMovies.get(position);
+    final String path = movieUrl + phoneSize + upcomingMovie.getPosterPath();
     // TODO add picasso
+
+    Picasso.get().load(path).into(holder.image);
     holder.title.setText(upcomingMovie.getTitle());
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -65,7 +65,7 @@ public class HomeActivity extends BaseActivity {
           }
 
           @Override public void onError(Throwable e) {
-
+            //TODO Show error message
           }
 
           @Override public void onNext(UpcomingResponse upcomingResponse) {
