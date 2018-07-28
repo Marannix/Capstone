@@ -55,8 +55,8 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
 
   public class ViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.imageView2) ImageView image;
-    @BindView(R.id.textView) TextView title;
+    @BindView(R.id.upcoming_movies_poster) ImageView image;
+    @BindView(R.id.upcoming_movies_title) TextView title;
 
     public ViewHolder(View itemView) {
       super(itemView);

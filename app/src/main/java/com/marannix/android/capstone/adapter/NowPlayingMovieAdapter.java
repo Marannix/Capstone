@@ -59,8 +59,8 @@ public class NowPlayingMovieAdapter
 
   public class ViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.imageView3) ImageView image;
-    @BindView(R.id.textView1) TextView title;
+    @BindView(R.id.now_playing_image) ImageView image;
+    @BindView(R.id.now_playing_title) TextView title;
 
     public ViewHolder(View itemView) {
       super(itemView);
