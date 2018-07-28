@@ -1,5 +1,6 @@
 package com.marannix.android.capstone.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,7 +27,8 @@ public class NowPlayingMovieFragment extends Fragment {
   @BindView(R.id.now_playing_recycler_View) RecyclerView recyclerView;
 
   private MovieRepository movieRepository;
-  private List<NowPlayingMovies> nowPlayingMoviesList;
+  //private List<NowPlayingMovies> nowPlayingMoviesList;
+  private NowPlayingMovieAdapter adapter;
 
   public NowPlayingMovieFragment() {
   }
@@ -38,8 +40,8 @@ public class NowPlayingMovieFragment extends Fragment {
     ButterKnife.bind(this, rootView);
     movieRepository = new MovieRepository();
     movieRepository.initApiModule();
-    retrieveNowPlayingMovies();
     initAdapter();
+    retrieveNowPlayingMovies();
     return rootView;
   }
 
@@ -52,7 +54,7 @@ public class NowPlayingMovieFragment extends Fragment {
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setHasFixedSize(true);
 
-    NowPlayingMovieAdapter adapter = new NowPlayingMovieAdapter(getContext(), nowPlayingMoviesList);
+    adapter = new NowPlayingMovieAdapter();
     recyclerView.setAdapter(adapter);
   }
 
@@ -62,7 +64,7 @@ public class NowPlayingMovieFragment extends Fragment {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Subscriber<NowPlayingResponse>() {
           @Override public void onCompleted() {
-            initAdapter();
+
           }
 
           @Override public void onError(Throwable e) {
@@ -70,8 +72,12 @@ public class NowPlayingMovieFragment extends Fragment {
           }
 
           @Override public void onNext(NowPlayingResponse nowPlayingResponse) {
-            nowPlayingMoviesList = nowPlayingResponse.getResults();
+            setListData(getContext(), nowPlayingResponse.getResults());
           }
         });
+  }
+
+  public void setListData(Context context,List<NowPlayingMovies> movies) {
+    adapter.setListData(context, movies);
   }
 }

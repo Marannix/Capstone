@@ -23,9 +23,10 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
   private String movieUrl = "https://image.tmdb.org/t/p/";
   private String phoneSize = "w500";
 
-  public UpcomingMovieAdapter(Context context, List<Movie> upcomingMovies) {
+  public void setListData(Context context, List<Movie> upcomingMovies) {
     this.context = context;
     this.upcomingMovies = upcomingMovies;
+    this.notifyDataSetChanged();
   }
 
   @NonNull @Override public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

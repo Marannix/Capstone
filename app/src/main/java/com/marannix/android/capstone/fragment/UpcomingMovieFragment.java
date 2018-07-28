@@ -1,5 +1,6 @@
 package com.marannix.android.capstone.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,10 +29,10 @@ public class UpcomingMovieFragment extends Fragment {
 
   private MovieRepository movieRepository;
   private List<Movie> upcomingMoviesList;
+  private UpcomingMovieAdapter adapter;
 
   public UpcomingMovieFragment() {
   }
-
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -40,8 +41,9 @@ public class UpcomingMovieFragment extends Fragment {
     ButterKnife.bind(this, rootView);
     movieRepository = new MovieRepository();
     movieRepository.initApiModule();
-    retrieveUpcomingMovies();
     initUpcomingMovieAdapter();
+    retrieveUpcomingMovies();
+    //initUpcomingMovieAdapter();
     return rootView;
   }
 
@@ -54,9 +56,8 @@ public class UpcomingMovieFragment extends Fragment {
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setHasFixedSize(true);
 
-    UpcomingMovieAdapter upcomingMovieAdapter =
-        new UpcomingMovieAdapter(getContext(), upcomingMoviesList);
-    recyclerView.setAdapter(upcomingMovieAdapter);
+    adapter = new UpcomingMovieAdapter();
+    recyclerView.setAdapter(adapter);
   }
 
   private void retrieveUpcomingMovies() {
@@ -65,16 +66,20 @@ public class UpcomingMovieFragment extends Fragment {
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Subscriber<MovieResponse>() {
           @Override public void onCompleted() {
-            initUpcomingMovieAdapter();
+
           }
 
           @Override public void onError(Throwable e) {
             //TODO Show error message
           }
 
-          @Override public void onNext(MovieResponse upcomingResponse) {
-            upcomingMoviesList = upcomingResponse.getMovies();
+          @Override public void onNext(MovieResponse movies) {
+            setListData(getContext(), movies.getMovies());
           }
         });
+  }
+
+  public void setListData(Context context, List<Movie> movies) {
+    adapter.setListData(context, movies);
   }
 }

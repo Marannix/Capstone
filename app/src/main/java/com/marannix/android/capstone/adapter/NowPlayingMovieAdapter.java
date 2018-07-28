@@ -16,16 +16,18 @@ import com.marannix.android.capstone.data.model.NowPlayingMovies;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
-public class NowPlayingMovieAdapter extends RecyclerView.Adapter<NowPlayingMovieAdapter.ViewHolder> {
+public class NowPlayingMovieAdapter
+    extends RecyclerView.Adapter<NowPlayingMovieAdapter.ViewHolder> {
 
   private Context context;
   private List<NowPlayingMovies> nowPlayingMovies;
   private String movieUrl = "https://image.tmdb.org/t/p/";
   private String phoneSize = "w500";
 
-  public NowPlayingMovieAdapter(Context context, List<NowPlayingMovies> nowPlayingMovies) {
+  public void setListData(Context context, List<NowPlayingMovies> nowPlayingMovies) {
     this.context = context;
     this.nowPlayingMovies = nowPlayingMovies;
+    this.notifyDataSetChanged();
   }
 
   @NonNull @Override
@@ -39,7 +41,6 @@ public class NowPlayingMovieAdapter extends RecyclerView.Adapter<NowPlayingMovie
   public void onBindViewHolder(@NonNull NowPlayingMovieAdapter.ViewHolder holder, int position) {
     final NowPlayingMovies nowPlayingMovie = nowPlayingMovies.get(position);
     final String path = movieUrl + phoneSize + nowPlayingMovie.getPosterPath();
-
 
     Picasso.get().load(path).into(holder.image);
     holder.title.setText(nowPlayingMovie.getTitle());
