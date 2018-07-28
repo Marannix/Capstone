@@ -21,12 +21,12 @@ public interface MovieApi {
 
   @GET("movie/top_rated?" + authentication) Call<MovieResponse> getTopRatedMovies();
 
-  @GET("movie/{id}/videos?" + authentication) Call<VideoResponse> getMovieVideos(
-      @Path("id") int id);
-
   @GET("movie/upcoming?" + authentication) Observable<MovieResponse> getUpcomingResponse();
 
   @GET("movie/now_playing?" + authentication) Observable<MovieResponse> getNowPlayingResponse();
+
+  @GET("movie/{id}/videos?" + authentication) Call<VideoResponse> getMovieVideos(
+      @Path("id") int id);
 
   @GET("movie/{id}/reviews?" + authentication) Call<ReviewResponse> getMovieReviews(
       @Path("id") int id);
