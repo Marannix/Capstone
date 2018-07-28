@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
+// TODO: Delete class
 public class NowPlayingMovies implements Parcelable{
 
   private int id;

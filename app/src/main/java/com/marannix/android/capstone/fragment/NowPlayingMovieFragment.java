@@ -14,9 +14,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.marannix.android.capstone.R;
 import com.marannix.android.capstone.adapter.NowPlayingMovieAdapter;
-import com.marannix.android.capstone.data.model.NowPlayingMovies;
+import com.marannix.android.capstone.data.model.Movie;
 import com.marannix.android.capstone.repository.MovieRepository;
-import com.marannix.android.capstone.response.NowPlayingResponse;
+import com.marannix.android.capstone.response.MovieResponse;
 import java.util.List;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -62,7 +62,7 @@ public class NowPlayingMovieFragment extends Fragment {
     movieRepository.fetchNowPlayingMovies()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Subscriber<NowPlayingResponse>() {
+        .subscribe(new Subscriber<MovieResponse>() {
           @Override public void onCompleted() {
 
           }
@@ -71,13 +71,13 @@ public class NowPlayingMovieFragment extends Fragment {
 
           }
 
-          @Override public void onNext(NowPlayingResponse nowPlayingResponse) {
-            setListData(getContext(), nowPlayingResponse.getResults());
+          @Override public void onNext(MovieResponse nowPlayingResponse) {
+            setListData(getContext(), nowPlayingResponse.getMovies());
           }
         });
   }
 
-  public void setListData(Context context,List<NowPlayingMovies> movies) {
+  public void setListData(Context context,List<Movie> movies) {
     adapter.setListData(context, movies);
   }
 }

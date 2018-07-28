@@ -12,7 +12,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.marannix.android.capstone.R;
-import com.marannix.android.capstone.data.model.NowPlayingMovies;
+import com.marannix.android.capstone.data.model.Movie;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
@@ -20,11 +20,11 @@ public class NowPlayingMovieAdapter
     extends RecyclerView.Adapter<NowPlayingMovieAdapter.ViewHolder> {
 
   private Context context;
-  private List<NowPlayingMovies> nowPlayingMovies;
+  private List<Movie> nowPlayingMovies;
   private String movieUrl = "https://image.tmdb.org/t/p/";
   private String phoneSize = "w500";
 
-  public void setListData(Context context, List<NowPlayingMovies> nowPlayingMovies) {
+  public void setListData(Context context, List<Movie> nowPlayingMovies) {
     this.context = context;
     this.nowPlayingMovies = nowPlayingMovies;
     this.notifyDataSetChanged();
@@ -39,7 +39,7 @@ public class NowPlayingMovieAdapter
 
   @Override
   public void onBindViewHolder(@NonNull NowPlayingMovieAdapter.ViewHolder holder, int position) {
-    final NowPlayingMovies nowPlayingMovie = nowPlayingMovies.get(position);
+    final Movie nowPlayingMovie = nowPlayingMovies.get(position);
     final String path = movieUrl + phoneSize + nowPlayingMovie.getPosterPath();
 
     Picasso.get().load(path).into(holder.image);
