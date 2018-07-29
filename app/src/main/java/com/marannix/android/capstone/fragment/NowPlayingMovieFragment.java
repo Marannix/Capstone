@@ -99,7 +99,6 @@ public class NowPlayingMovieFragment extends Fragment {
           Movie movie = movieSnapshot.getValue(Movie.class);
           nowPlayingMoviesList.add(movie);
         }
-
         setListData(getContext(), nowPlayingMoviesList);
       }
 

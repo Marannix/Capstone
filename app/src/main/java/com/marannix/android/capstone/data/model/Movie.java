@@ -14,6 +14,8 @@ public class Movie implements Parcelable {
   @SerializedName("vote_count") private int voteCount;
   @SerializedName("vote_average") private float voteAverage;
   @SerializedName("release_date") private String releaseDate;
+
+  //TODO: https://www.youtube.com/watch?v=mrzITuepiFM
   private Boolean favourite;
 
   public Movie() {
