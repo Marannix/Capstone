@@ -41,7 +41,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHold
     final Trailers trailer = trailers.get(position);
     holder.title.setText(trailer.getName());
     trailerUrl = YOUTUBE_URL + trailer.getKey();
-    String img_url = YOUTUBE_THUMBNAIL + trailer.getKey() + "/0.jpg";
+    String img_url = YOUTUBE_THUMBNAIL + trailer.getKey() + "/sddefault.jpg";
 
     Picasso.get().load(img_url).into(holder.thumbnail);
 

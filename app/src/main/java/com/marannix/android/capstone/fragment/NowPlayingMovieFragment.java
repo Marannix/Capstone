@@ -53,7 +53,6 @@ public class NowPlayingMovieFragment extends Fragment {
     GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setHasFixedSize(true);
-
     adapter = new NowPlayingMovieAdapter();
     recyclerView.setAdapter(adapter);
   }

@@ -48,7 +48,6 @@ public class NowPlayingMovieAdapter
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        // TODO: Take to movie activity
         Movie data =
             new Movie(movie.getId(), movie.getTitle(), movie.getOverview(), movie.getPosterPath(),
                 movie.getBackdropPath(), movie.getVoteCount(), movie.getVoteAverage(),
