@@ -12,11 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.marannix.android.capstone.R;
 import com.marannix.android.capstone.adapter.NowPlayingMovieAdapter;
 import com.marannix.android.capstone.data.model.Movie;
 import com.marannix.android.capstone.repository.MovieRepository;
 import com.marannix.android.capstone.response.MovieResponse;
+import java.util.ArrayList;
 import java.util.List;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -27,8 +33,10 @@ public class NowPlayingMovieFragment extends Fragment {
   @BindView(R.id.now_playing_recycler_View) RecyclerView recyclerView;
 
   private MovieRepository movieRepository;
-  //private List<NowPlayingMovies> nowPlayingMoviesList;
+  private List<Movie> nowPlayingMoviesList = new ArrayList<>();
   private NowPlayingMovieAdapter adapter;
+  private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+  private DatabaseReference moviesReference;
 
   public NowPlayingMovieFragment() {
   }
@@ -38,6 +46,8 @@ public class NowPlayingMovieFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_now_playing_movies, container, false);
     ButterKnife.bind(this, rootView);
+    moviesReference = rootRef.child("now_playing_movies");
+    moviesReference.keepSynced(true);
     movieRepository = new MovieRepository();
     movieRepository.initApiModule();
     initAdapter();
@@ -71,12 +81,31 @@ public class NowPlayingMovieFragment extends Fragment {
           }
 
           @Override public void onNext(MovieResponse nowPlayingResponse) {
-            setListData(getContext(), nowPlayingResponse.getMovies());
+            moviesReference.setValue(nowPlayingResponse.getMovies());
           }
         });
   }
 
-  public void setListData(Context context,List<Movie> movies) {
+  public void setListData(Context context, List<Movie> movies) {
     adapter.setListData(context, movies);
+  }
+
+  @Override public void onStart() {
+    super.onStart();
+    moviesReference.addValueEventListener(new ValueEventListener() {
+      @Override public void onDataChange(DataSnapshot dataSnapshot) {
+        nowPlayingMoviesList.clear();
+        for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
+          Movie movie = movieSnapshot.getValue(Movie.class);
+          nowPlayingMoviesList.add(movie);
+        }
+
+        setListData(getContext(), nowPlayingMoviesList);
+      }
+
+      @Override public void onCancelled(DatabaseError databaseError) {
+
+      }
+    });
   }
 }

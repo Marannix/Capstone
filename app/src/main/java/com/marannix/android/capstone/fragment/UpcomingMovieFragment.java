@@ -28,7 +28,6 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-//TODO Saturday, call fragment and pass it the list of upcoming movies
 public class UpcomingMovieFragment extends Fragment {
 
   @BindView(R.id.upcomingMovieRecyclerView) RecyclerView recyclerView;
@@ -47,7 +46,7 @@ public class UpcomingMovieFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_upcoming_movies_page, container, false);
     ButterKnife.bind(this, rootView);
-    moviesReference = rootRef.child("movies");
+    moviesReference = rootRef.child("upcoming_movies");
     moviesReference.keepSynced(true);
     movieRepository = new MovieRepository();
     movieRepository.initApiModule();
