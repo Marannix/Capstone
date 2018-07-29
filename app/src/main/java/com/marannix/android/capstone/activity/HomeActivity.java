@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.marannix.android.capstone.R;
 import com.marannix.android.capstone.adapter.HomeMoviePageAdapter;
 import com.marannix.android.capstone.fragment.NowPlayingMovieFragment;
@@ -16,7 +17,7 @@ public class HomeActivity extends BaseActivity {
   //TODO: Create Utils
   // https://stackoverflow.com/questions/37071342/how-to-create-rtl-viewpager
   // Set up RTL for viewpager
-
+  // https://www.youtube.com/watch?v=fGcMLu1GJEc  (NavigationDrawer)
   @BindView(R.id.tabs) TabLayout tabs;
   @BindView(R.id.viewPager) ViewPager viewPager;
 
@@ -24,10 +25,12 @@ public class HomeActivity extends BaseActivity {
   private NowPlayingMovieFragment nowPlayingMovieFragment;
   private HomeMoviePageAdapter homeMoviePageAdapter;
   private MovieRepository movieRepository;
+  private FirebaseAnalytics firebaseAnalytics;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    firebaseAnalytics = FirebaseAnalytics.getInstance(this);
     ButterKnife.bind(this, getViewGroup());
     initMovieRepository();
     initView();
@@ -61,5 +64,11 @@ public class HomeActivity extends BaseActivity {
     initPagerFragments();
     viewPager.setAdapter(homeMoviePageAdapter);
     tabs.setupWithViewPager(viewPager);
+  }
+
+  public void tracking(String title) {
+    Bundle params = new Bundle();
+    params.putString("movie_title", title);
+    firebaseAnalytics.logEvent("opened_movie", params);
   }
 }

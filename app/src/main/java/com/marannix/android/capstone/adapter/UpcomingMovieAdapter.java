@@ -13,6 +13,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.marannix.android.capstone.R;
+import com.marannix.android.capstone.activity.HomeActivity;
 import com.marannix.android.capstone.activity.MovieActivity;
 import com.marannix.android.capstone.data.model.Movie;
 import com.squareup.picasso.Picasso;
@@ -24,6 +25,11 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
   private static final String POSTER_SIZE = "w500";
   private Context context;
   private List<Movie> upcomingMovies;
+  private HomeActivity activity;
+
+  public UpcomingMovieAdapter(HomeActivity activity) {
+    this.activity = activity;
+  }
 
   public void setListData(Context context, List<Movie> upcomingMovies) {
     this.context = context;
@@ -51,6 +57,7 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
                 movie.getReleaseDate());
         Intent intent = new Intent(context, MovieActivity.class);
         intent.putExtra("myDataKey", data);
+        activity.tracking(movie.getTitle());
         context.startActivity(intent);
       }
     });

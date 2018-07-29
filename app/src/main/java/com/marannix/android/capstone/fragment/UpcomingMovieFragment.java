@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.marannix.android.capstone.R;
+import com.marannix.android.capstone.activity.HomeActivity;
 import com.marannix.android.capstone.adapter.UpcomingMovieAdapter;
 import com.marannix.android.capstone.data.model.Movie;
 import com.marannix.android.capstone.repository.MovieRepository;
@@ -63,7 +64,7 @@ public class UpcomingMovieFragment extends Fragment {
     GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setHasFixedSize(true);
-    adapter = new UpcomingMovieAdapter();
+    adapter = new UpcomingMovieAdapter((HomeActivity) getActivity());
     recyclerView.setAdapter(adapter);
   }
 

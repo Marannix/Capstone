@@ -12,6 +12,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.marannix.android.capstone.R;
+import com.marannix.android.capstone.activity.HomeActivity;
 import com.marannix.android.capstone.activity.MovieActivity;
 import com.marannix.android.capstone.data.model.Movie;
 import com.squareup.picasso.Picasso;
@@ -24,6 +25,11 @@ public class NowPlayingMovieAdapter
   private List<Movie> nowPlayingMovies;
   private String movieUrl = "https://image.tmdb.org/t/p/";
   private String phoneSize = "w500";
+  private HomeActivity activity;
+
+  public NowPlayingMovieAdapter(HomeActivity activity) {
+    this.activity = activity;
+  }
 
   public void setListData(Context context, List<Movie> nowPlayingMovies) {
     this.context = context;
@@ -54,6 +60,7 @@ public class NowPlayingMovieAdapter
                 movie.getReleaseDate());
         Intent intent = new Intent(context, MovieActivity.class);
         intent.putExtra("myDataKey", data);
+        activity.tracking(movie.getTitle());
         context.startActivity(intent);
       }
     });
