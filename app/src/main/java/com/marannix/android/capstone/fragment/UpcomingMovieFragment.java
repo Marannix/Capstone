@@ -12,13 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.marannix.android.capstone.R;
 import com.marannix.android.capstone.adapter.UpcomingMovieAdapter;
 import com.marannix.android.capstone.data.model.Movie;
 import com.marannix.android.capstone.repository.MovieRepository;
 import com.marannix.android.capstone.response.MovieResponse;
+import java.util.ArrayList;
 import java.util.List;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -30,7 +34,7 @@ public class UpcomingMovieFragment extends Fragment {
   @BindView(R.id.upcomingMovieRecyclerView) RecyclerView recyclerView;
 
   private MovieRepository movieRepository;
-  private List<Movie> upcomingMoviesList;
+  private List<Movie> upcomingMoviesList = new ArrayList<>();
   private UpcomingMovieAdapter adapter;
   private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
   private DatabaseReference moviesReference;
@@ -61,7 +65,6 @@ public class UpcomingMovieFragment extends Fragment {
     recyclerView.setHasFixedSize(true);
     adapter = new UpcomingMovieAdapter();
     recyclerView.setAdapter(adapter);
-
   }
 
   private void retrieveUpcomingMovies() {
@@ -78,9 +81,8 @@ public class UpcomingMovieFragment extends Fragment {
           }
 
           @Override public void onNext(MovieResponse movies) {
-            String id = moviesReference.push().getKey();
-            moviesReference.child(id).setValue(movies.getMovies());
-            setListData(getContext(), movies.getMovies());
+            //String id = moviesReference.push().getKey();
+            moviesReference.setValue(movies.getMovies());
           }
         });
   }
@@ -88,5 +90,23 @@ public class UpcomingMovieFragment extends Fragment {
   public void setListData(Context context, List<Movie> movies) {
     adapter.setListData(context, movies);
   }
-  
+
+  @Override public void onStart() {
+    super.onStart();
+    moviesReference.addValueEventListener(new ValueEventListener() {
+      @Override public void onDataChange(DataSnapshot dataSnapshot) {
+        upcomingMoviesList.clear();
+        for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
+          Movie movie = movieSnapshot.getValue(Movie.class);
+          upcomingMoviesList.add(movie);
+        }
+
+        setListData(getContext(), upcomingMoviesList);
+      }
+
+      @Override public void onCancelled(DatabaseError databaseError) {
+
+      }
+    });
+  }
 }
