@@ -1,9 +1,9 @@
 package com.marannix.android.capstone.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.marannix.android.capstone.R;
+import com.marannix.android.capstone.activity.MovieActivity;
 import com.marannix.android.capstone.data.model.Movie;
 import com.squareup.picasso.Picasso;
 import java.util.List;
@@ -39,16 +40,22 @@ public class NowPlayingMovieAdapter
 
   @Override
   public void onBindViewHolder(@NonNull NowPlayingMovieAdapter.ViewHolder holder, int position) {
-    final Movie nowPlayingMovie = nowPlayingMovies.get(position);
-    final String path = movieUrl + phoneSize + nowPlayingMovie.getPosterPath();
+    final Movie movie = nowPlayingMovies.get(position);
+    final String path = movieUrl + phoneSize + movie.getPosterPath();
 
     Picasso.get().load(path).into(holder.image);
-    holder.title.setText(nowPlayingMovie.getTitle());
+    holder.title.setText(movie.getTitle());
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         // TODO: Take to movie activity
-        Log.d("Joshua1", "onClick: I've been clicked NowPlaying");
+        Movie data =
+            new Movie(movie.getId(), movie.getTitle(), movie.getOverview(), movie.getPosterPath(),
+                movie.getBackdropPath(), movie.getVoteCount(), movie.getVoteAverage(),
+                movie.getReleaseDate());
+        Intent intent = new Intent(context, MovieActivity.class);
+        intent.putExtra("myDataKey", data);
+        context.startActivity(intent);
       }
     });
   }

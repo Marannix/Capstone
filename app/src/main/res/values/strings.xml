@@ -1,4 +1,5 @@
 <resources>
   <string name="app_name">Capstone</string>
   <string name="description_title">Description</string>
+  <string name="artworks_title">Artworks</string>
 </resources>
