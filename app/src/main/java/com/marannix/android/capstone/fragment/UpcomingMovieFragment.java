@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.marannix.android.capstone.R;
 import com.marannix.android.capstone.adapter.UpcomingMovieAdapter;
 import com.marannix.android.capstone.data.model.Movie;
@@ -30,6 +32,8 @@ public class UpcomingMovieFragment extends Fragment {
   private MovieRepository movieRepository;
   private List<Movie> upcomingMoviesList;
   private UpcomingMovieAdapter adapter;
+  private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+  private DatabaseReference moviesReference;
 
   public UpcomingMovieFragment() {
   }
@@ -39,11 +43,11 @@ public class UpcomingMovieFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_upcoming_movies_page, container, false);
     ButterKnife.bind(this, rootView);
+    moviesReference = rootRef.child("movies");
     movieRepository = new MovieRepository();
     movieRepository.initApiModule();
     initUpcomingMovieAdapter();
     retrieveUpcomingMovies();
-    //initUpcomingMovieAdapter();
     return rootView;
   }
 
@@ -55,9 +59,9 @@ public class UpcomingMovieFragment extends Fragment {
     GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setHasFixedSize(true);
-
     adapter = new UpcomingMovieAdapter();
     recyclerView.setAdapter(adapter);
+
   }
 
   private void retrieveUpcomingMovies() {
@@ -74,6 +78,8 @@ public class UpcomingMovieFragment extends Fragment {
           }
 
           @Override public void onNext(MovieResponse movies) {
+            String id = moviesReference.push().getKey();
+            moviesReference.child(id).setValue(movies.getMovies());
             setListData(getContext(), movies.getMovies());
           }
         });
@@ -82,4 +88,5 @@ public class UpcomingMovieFragment extends Fragment {
   public void setListData(Context context, List<Movie> movies) {
     adapter.setListData(context, movies);
   }
+  
 }
