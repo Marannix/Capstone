@@ -3,7 +3,7 @@ package com.marannix.android.capstone.api;
 import com.marannix.android.capstone.response.CreditsResponse;
 import com.marannix.android.capstone.response.MovieResponse;
 import com.marannix.android.capstone.response.ReviewResponse;
-import com.marannix.android.capstone.response.VideoResponse;
+import com.marannix.android.capstone.response.TrailerResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -25,7 +25,7 @@ public interface MovieApi {
 
   @GET("movie/now_playing?" + authentication) Observable<MovieResponse> getNowPlayingResponse();
 
-  @GET("movie/{id}/videos?" + authentication) Call<VideoResponse> getMovieVideos(
+  @GET("movie/{id}/videos?" + authentication) Observable<TrailerResponse> getMovieTrailers(
       @Path("id") int id);
 
   @GET("movie/{id}/reviews?" + authentication) Call<ReviewResponse> getMovieReviews(

@@ -1,10 +1,10 @@
 package com.marannix.android.capstone.data.model;
 
-public class Videos {
+public class Trailers {
   private String key;
   private String name;
 
-  public Videos(String key, String name) {
+  public Trailers(String key, String name) {
     this.key = key;
     this.name = name;
   }

@@ -12,7 +12,7 @@ public class MovieActivity extends BaseActivity {
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.movie_layout);
+    setContentView(R.layout.movie_full_layout);
     Movie movie = getIntent().getParcelableExtra("myDataKey");
 
     MoviePresenter moviePresenter = new MoviePresenter(getApplicationContext(), movie);
