@@ -2,4 +2,5 @@
   <string name="app_name">Capstone</string>
   <string name="description_title">Description</string>
   <string name="artworks_title">Artworks</string>
+  <string name="trailer_title">Trailer</string>
 </resources>

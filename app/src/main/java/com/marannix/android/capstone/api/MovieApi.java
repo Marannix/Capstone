@@ -1,6 +1,7 @@
 package com.marannix.android.capstone.api;
 
 import com.marannix.android.capstone.response.CreditsResponse;
+import com.marannix.android.capstone.response.ImageResponse;
 import com.marannix.android.capstone.response.MovieResponse;
 import com.marannix.android.capstone.response.ReviewResponse;
 import com.marannix.android.capstone.response.TrailerResponse;
@@ -31,5 +32,9 @@ public interface MovieApi {
   @GET("movie/{id}/reviews?" + authentication) Call<ReviewResponse> getMovieReviews(
       @Path("id") int id);
 
-  @GET("movie/{id}/credits?" + authentication) Call<CreditsResponse> getCreditResponse();
+  @GET("movie/{id}/credits?" + authentication) Call<CreditsResponse> getCreditResponse(
+      @Path("id") int id);
+
+  @GET("movie/{id}/images?" + authentication) Observable<ImageResponse> getImagesResponse(
+      @Path("id") int id);
 }

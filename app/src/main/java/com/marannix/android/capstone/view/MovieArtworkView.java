@@ -1,26 +1,39 @@
 package com.marannix.android.capstone.view;
 
+import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.marannix.android.capstone.R;
-import com.squareup.picasso.Picasso;
+import com.marannix.android.capstone.adapter.ArtworkAdapter;
+import com.marannix.android.capstone.data.model.Poster;
+import java.util.List;
 
 public class MovieArtworkView {
 
-  @BindView(R.id.movie_artwork_poster) ImageView posterImage;
+  private ViewGroup parent;
+  private ArtworkAdapter artworkAdapter;
 
-  private String movieUrl = "https://image.tmdb.org/t/p/";
-  private String POSTER_SIZE = "w342";
+  @BindView(R.id.artwork_recycler_view) RecyclerView recyclerView;
 
   public MovieArtworkView(ViewGroup parent) {
     ButterKnife.bind(this, parent);
+    this.parent = parent;
+    initVideoAdapter();
   }
 
-  public void setArtworks(String poster) {
-    final String posterPath = movieUrl + POSTER_SIZE + poster;
-    Picasso.get().load(posterPath).into(posterImage);
+  public void setArtwork(List<Poster> posters, Context context) {
+    artworkAdapter.setArtworks(posters, context);
   }
 
+  private void initVideoAdapter() {
+    artworkAdapter = new ArtworkAdapter();
+    recyclerView.setHasFixedSize(true);
+    LinearLayoutManager layoutManager =
+        new LinearLayoutManager(parent.getContext(), LinearLayoutManager.HORIZONTAL, false);
+    recyclerView.setLayoutManager(layoutManager);
+    recyclerView.setAdapter(artworkAdapter);
+  }
 }

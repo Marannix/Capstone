@@ -3,7 +3,9 @@ package com.marannix.android.capstone.presenter;
 import android.content.Context;
 import android.view.ViewGroup;
 import com.marannix.android.capstone.data.model.Movie;
+import com.marannix.android.capstone.repository.PosterRepository;
 import com.marannix.android.capstone.repository.TrailerRepository;
+import com.marannix.android.capstone.response.ImageResponse;
 import com.marannix.android.capstone.response.TrailerResponse;
 import com.marannix.android.capstone.view.MovieArtworkView;
 import com.marannix.android.capstone.view.MovieDescriptionView;
@@ -18,6 +20,7 @@ public class MoviePresenter {
   private Context context;
   private Movie movie;
   private TrailerRepository trailerRepository;
+  private PosterRepository posterRepository;
   private MovieHeaderView movieHeaderView;
   private MovieDescriptionView movieDescriptionView;
   private MovieArtworkView movieArtworkView;
@@ -32,12 +35,15 @@ public class MoviePresenter {
     initRepository();
     initViews(viewGroup);
     retrieveTrailers();
+    retrieveImages();
     setViews(movie);
   }
 
   private void initRepository() {
     trailerRepository = new TrailerRepository();
+    posterRepository = new PosterRepository();
     trailerRepository.initApiModule();
+    posterRepository.initApiModule();
   }
 
   private void initViews(ViewGroup viewGroup) {
@@ -50,7 +56,6 @@ public class MoviePresenter {
   private void setViews(Movie movie) {
     movieHeaderView.setContent(movie);
     movieDescriptionView.setContent(movie.getOverview());
-    movieArtworkView.setArtworks(movie.getPosterPath());
   }
 
   private void retrieveTrailers() {
@@ -68,6 +73,25 @@ public class MoviePresenter {
 
           @Override public void onNext(TrailerResponse trailerResponse) {
             movieTrailerView.setVideos(trailerResponse.getTrailers(), context);
+          }
+        });
+  }
+
+  private void retrieveImages() {
+    posterRepository.fetchMovieImages(movie.getId())
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Subscriber<ImageResponse>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+
+          }
+
+          @Override public void onNext(ImageResponse imageResponse) {
+            movieArtworkView.setArtwork(imageResponse.getPosters(), context);
           }
         });
   }
