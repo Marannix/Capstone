@@ -77,7 +77,7 @@ public class UpcomingMovieFragment extends Fragment {
           }
 
           @Override public void onError(Throwable e) {
-            //TODO Show error message
+
           }
 
           @Override public void onNext(MovieResponse movies) {
@@ -99,7 +99,6 @@ public class UpcomingMovieFragment extends Fragment {
           Movie movie = movieSnapshot.getValue(Movie.class);
           upcomingMoviesList.add(movie);
         }
-
         setListData(getContext(), upcomingMoviesList);
       }
 

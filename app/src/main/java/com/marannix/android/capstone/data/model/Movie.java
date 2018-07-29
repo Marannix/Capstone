@@ -14,6 +14,7 @@ public class Movie implements Parcelable {
   @SerializedName("vote_count") private int voteCount;
   @SerializedName("vote_average") private float voteAverage;
   @SerializedName("release_date") private String releaseDate;
+  private Boolean favourite;
 
   public Movie() {
 
@@ -29,6 +30,7 @@ public class Movie implements Parcelable {
     this.voteCount = voteCount;
     this.voteAverage = voteAverage;
     this.releaseDate = releaseDate;
+    this.favourite = false;
   }
 
   protected Movie(Parcel in) {
@@ -99,6 +101,10 @@ public class Movie implements Parcelable {
     this.backdropPath = backdropPath;
   }
 
+  public void setFavourite(Boolean favourite) {
+    this.favourite = favourite;
+  }
+
   public int getId() {
     return id;
   }
@@ -129,5 +135,9 @@ public class Movie implements Parcelable {
 
   public String getBackdropPath() {
     return backdropPath;
+  }
+
+  public Boolean getFavourite() {
+    return favourite;
   }
 }
