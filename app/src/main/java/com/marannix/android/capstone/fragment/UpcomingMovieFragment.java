@@ -48,6 +48,7 @@ public class UpcomingMovieFragment extends Fragment {
     View rootView = inflater.inflate(R.layout.fragment_upcoming_movies_page, container, false);
     ButterKnife.bind(this, rootView);
     moviesReference = rootRef.child("movies");
+    moviesReference.keepSynced(true);
     movieRepository = new MovieRepository();
     movieRepository.initApiModule();
     initUpcomingMovieAdapter();
@@ -81,7 +82,6 @@ public class UpcomingMovieFragment extends Fragment {
           }
 
           @Override public void onNext(MovieResponse movies) {
-            //String id = moviesReference.push().getKey();
             moviesReference.setValue(movies.getMovies());
           }
         });
