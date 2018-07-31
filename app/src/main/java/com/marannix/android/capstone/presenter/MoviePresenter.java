@@ -118,15 +118,15 @@ public class MoviePresenter {
     movieEntireView.getFab().setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         if (!favouriteDbHelper.isFavourite(String.valueOf((movie.getId())))) {
-          AddMovieToFavDatabase();
+          addMovieToFavDatabase();
         } else {
-          RemoveMovieFromDatabase();
+          removeMovieFromDatabase();
         }
       }
     });
   }
 
-  private void AddMovieToFavDatabase() {
+  private void addMovieToFavDatabase() {
     SharedPreferences.Editor editor =
         context.getSharedPreferences(".MovieActivity", Context.MODE_PRIVATE).edit();
     editor.putBoolean("Favourite Added", true);
@@ -136,7 +136,7 @@ public class MoviePresenter {
     Toast.makeText(context, "Added to Favourite", Toast.LENGTH_SHORT).show();
   }
 
-  private void RemoveMovieFromDatabase() {
+  private void removeMovieFromDatabase() {
     SharedPreferences.Editor editor =
         context.getSharedPreferences(".MovieActivity", Context.MODE_PRIVATE).edit();
     favouriteDbHelper = new FavouriteDbHelper(context);
