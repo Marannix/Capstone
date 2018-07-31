@@ -1,4 +1,4 @@
-package com.marannix.android.capstone.data.model;
+package com.marannix.android.capstone.data;
 
 import android.provider.BaseColumns;
 

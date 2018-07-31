@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import com.marannix.android.capstone.data.model.FavouriteContract;
+import com.marannix.android.capstone.data.FavouriteContract;
 import com.marannix.android.capstone.data.model.Movie;
 import java.util.ArrayList;
 import java.util.List;
