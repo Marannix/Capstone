@@ -66,6 +66,8 @@ public class MoviePresenter {
   }
 
   private void setViews(Movie movie) {
+    movieEntireView.loadBackdrop(movie);
+    movieEntireView.setCollapsingToolbarLayout();
     movieHeaderView.setContent(movie);
     movieDescriptionView.setContent(movie.getOverview());
   }
