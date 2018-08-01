@@ -3,6 +3,7 @@ package com.marannix.android.capstone.widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 import com.marannix.android.capstone.R;
 
@@ -27,6 +28,10 @@ public class FavouriteMovieWidgetProvider extends AppWidgetProvider {
     for (int appWidgetId : appWidgetIds) {
       updateAppWidget(context, appWidgetManager, appWidgetId);
     }
+  }
+
+  @Override public void onReceive(Context context, Intent intent) {
+    super.onReceive(context, intent);
   }
 
   @Override public void onEnabled(Context context) {

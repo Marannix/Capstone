@@ -12,7 +12,7 @@ public class FavouriteMovieWidgetService extends RemoteViewsService {
   @Override public RemoteViewsFactory onGetViewFactory(Intent intent) {
     return new MyRemoteViewsFactory(getApplicationContext());
   }
-  
+
   private class MyRemoteViewsFactory implements RemoteViewsFactory {
 
     private List<Movie> moviesList;
