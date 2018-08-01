@@ -24,6 +24,17 @@
     <activity
         android:name=".activity.MovieActivity"
         android:theme="@style/MovieTheme"/>
+
+    <receiver android:name=".widget.FavouriteMovieWidgetProvider">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+      </intent-filter>
+
+      <meta-data
+          android:name="android.appwidget.provider"
+          android:resource="@xml/favourite_movie_widget_info"/>
+    </receiver>
+    <service android:name=".widget.FavouriteMovieWidgetService"/>
   </application>
 
 </manifest>
