@@ -36,6 +36,7 @@
     </receiver>
     <service android:name=".widget.FavouriteMovieWidgetService"
         android:permission="android.permission.BIND_REMOTEVIEWS"/>
+    <service android:name=".widget.WidgetUpdateService"/>
   </application>
 
 </manifest>
