@@ -21,9 +21,8 @@ public class FavouriteMovieWidgetProvider extends AppWidgetProvider {
     RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.favourite_movie_widget);
 
     if (SharedPreference.getSharedPreferences(context) != null) {
-
       views.setTextViewText(R.id.favourite_item_widget_title,
-          SharedPreference.getSharedPreferences(context).getTitle());
+          "These are your Favourite Movies");
     } else {
       views.setTextViewText(R.id.favourite_item_widget_title,
           "You have no Favourite Movies");
@@ -44,7 +43,6 @@ public class FavouriteMovieWidgetProvider extends AppWidgetProvider {
   }
 
   @Override public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-    // There may be multiple widgets active, so update all of them
     for (int appWidgetId : appWidgetIds) {
       updateAppWidget(context, appWidgetManager, appWidgetId);
     }

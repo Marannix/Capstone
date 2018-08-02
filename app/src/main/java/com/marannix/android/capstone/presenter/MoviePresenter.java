@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.marannix.android.capstone.R;
+import com.marannix.android.capstone.data.SharedPreference;
 import com.marannix.android.capstone.data.model.Movie;
 import com.marannix.android.capstone.database.FavouriteDbHelper;
 import com.marannix.android.capstone.repository.PosterRepository;
@@ -48,6 +49,7 @@ public class MoviePresenter {
     setFavouriteDbHelper();
     setFavouriteFabIcon();
     setFavouriteMovies();
+    updateWidget();
   }
 
   private void initRepository() {
@@ -153,5 +155,9 @@ public class MoviePresenter {
     } else {
       movieEntireView.getFab().setImageResource(R.drawable.ic_favorite_border_black_24dp);
     }
+  }
+
+  private void updateWidget() {
+    SharedPreference.setSharedPreferences(context, favouriteDbHelper.getAllFavourite());
   }
 }
