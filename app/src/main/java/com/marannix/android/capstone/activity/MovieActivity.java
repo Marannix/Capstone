@@ -14,13 +14,22 @@ public class MovieActivity extends BaseActivity {
 
   @BindView(R.id.movie_toolbar) Toolbar toolbar;
 
+  private Movie movie;
   //TODO: https://www.themoviedb.org/talk/53c11d4ec3a3684cf4006400
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.movie_full_layout);
     ButterKnife.bind(this, getViewGroup());
-    Movie movie = getIntent().getParcelableExtra("myDataKey");
+
+    if (getIntent() != null && getIntent().getExtras() != null) {
+      if (getIntent().getExtras().containsKey("widgetMovie")) {
+        movie = getIntent().getParcelableExtra("widgetMovie");
+      } else {
+        movie = getIntent().getParcelableExtra("myDataKey");
+      }
+    }
+
     MoviePresenter moviePresenter = new MoviePresenter(getApplicationContext(), movie);
     setupToolbar(movie);
     moviePresenter.present(getViewGroup());
@@ -40,5 +49,9 @@ public class MovieActivity extends BaseActivity {
       finish();
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override protected void onStop() {
+    super.onStop();
   }
 }

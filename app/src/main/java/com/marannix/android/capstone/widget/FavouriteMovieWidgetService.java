@@ -48,9 +48,15 @@ public class FavouriteMovieWidgetService extends RemoteViewsService {
           new RemoteViews(context.getPackageName(), R.layout.favourite_movie_list_item_widget);
       remoteViews.setTextViewText(R.id.favourite_item_widget_text, moviesList.get(position).getTitle());
 
-      //Intent fillInIntent = new Intent();
-      //fillInIntent.putExtra("ItemId", moviesList.get(position).getId());
-      //remoteViews.setOnClickFillInIntent(R.id.widget_layout, fillInIntent);
+      Movie movie = moviesList.get(position);
+      Movie data =
+          new Movie(movie.getId(), movie.getTitle(), movie.getOverview(), movie.getPosterPath(),
+              movie.getBackdropPath(), movie.getVoteCount(), movie.getVoteAverage(),
+              movie.getReleaseDate());
+
+      Intent fillInIntent = new Intent();
+      fillInIntent.putExtra("widgetMovie", data);
+      remoteViews.setOnClickFillInIntent(R.id.parentView, fillInIntent);
 
       return remoteViews;
     }
