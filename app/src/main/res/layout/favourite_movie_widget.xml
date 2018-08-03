@@ -12,17 +12,17 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:background="#f0fff0"
-      android:textStyle="bold"
       android:padding="10dp"
       android:text="Favourite Movies"
       android:textColor="#000"
       android:textSize="16sp"
+      android:textStyle="bold"
       />
 
   <ListView
       android:id="@+id/widgetListView"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:divider="#f0f0f0"
       android:dividerHeight="1dp"
       tools:listitem="@layout/favourite_movie_list_item_widget"
