@@ -17,64 +17,20 @@ import com.marannix.android.capstone.activity.MovieActivity;
  */
 public class FavouriteMovieWidgetProvider extends AppWidgetProvider {
 
-  //TODO: https://medium.com/@puruchauhan/android-widget-for-starters-5db14f23009b
-
-  //static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-  //
-  //  RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.favourite_movie_widget);
-  //
-  //  if (SharedPreference.getSharedPreferences(context) != null) {
-  //    views.setTextViewText(R.id.favourite_item_widget_title,
-  //        "These are your Favourite Movies");
-  //  } else {
-  //    views.setTextViewText(R.id.favourite_item_widget_title,
-  //        "You have no Favourite Movies");
-  //  }
-  //
-  //  Intent intent = new Intent(context, FavouriteMovieWidgetService.class);
-  //
-  //  //TODO: I need to create a Favourite word activity.
-  //  Intent activity = new Intent(context, HomeActivity.class);
-  //
-  //  views.setRemoteAdapter(R.id.widgetListView, intent);
-  //
-  //  PendingIntent pendingIntent =
-  //      PendingIntent.getActivity(context, 0, activity, PendingIntent.FLAG_UPDATE_CURRENT);
-  //  views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
-  //
-  //  appWidgetManager.updateAppWidget(appWidgetId, views);
-  //}
+  private final static int WIDGET_MIN_WIDTH = 150;
+  private final static int WIDGET_MIN_HEIGHT = 150;
 
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-    //for (int appWidgetId : appWidgetIds) {
-    //  updateAppWidget(context, appWidgetManager, appWidgetId);
-    //}
     WidgetUpdateService.startActionUpdateAppWidgets(context, false);
   }
-
-  //@Override public void onReceive(Context context, Intent intent) {
-  //  super.onReceive(context, intent);
-
-  //String action = intent.getAction();
-  //if (action.equals("com.example.android.capstone.action.update.widget")) {
-  //  AppWidgetManager appWidgetManager =
-  //      AppWidgetManager.getInstance(context.getApplicationContext());
-  //  ComponentName widget = new ComponentName(context.getApplicationContext(),
-  //      FavouriteMovieWidgetProvider.class.getName());
-  //  int[] appWidgetIds = appWidgetManager.getAppWidgetIds(widget);
-  //  appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds,
-  //      R.id.favourite_item_widget_title);
-  //  onUpdate(context, appWidgetManager, appWidgetIds);
-  //}
-  // }
 
   @Override
   public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager,
       int appWidgetId, Bundle newOptions) {
     Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
     int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
-    if (width < 150) {
+    if (width < WIDGET_MIN_WIDTH) {
       WidgetUpdateService.startActionUpdateAppWidgets(context, false);
     } else {
       WidgetUpdateService.startActionUpdateAppWidgets(context, true);
@@ -94,7 +50,7 @@ public class FavouriteMovieWidgetProvider extends AppWidgetProvider {
     Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
     int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
     RemoteViews remoteView;
-    if (width < 150) {
+    if (width < WIDGET_MIN_WIDTH) {
       remoteView = getViewForSmallerWidget(context);
     } else {
       remoteView = getViewForBiggerWidget(context, options);
@@ -106,7 +62,7 @@ public class FavouriteMovieWidgetProvider extends AppWidgetProvider {
     RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.favourite_movie_widget);
 
     int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
-    if (minHeight < 100) {
+    if (minHeight < WIDGET_MIN_HEIGHT) {
       views.setViewVisibility(R.id.favourite_item_widget_text, View.GONE);
     } else {
       views.setViewVisibility(R.id.favourite_item_widget_text, View.VISIBLE);
@@ -119,31 +75,26 @@ public class FavouriteMovieWidgetProvider extends AppWidgetProvider {
     }
 
     Intent intent = new Intent(context, FavouriteMovieWidgetService.class);
-    views.setRemoteAdapter(R.id.widgetListView, intent);
+    views.setRemoteAdapter(R.id.widget_list_view, intent);
 
     Intent appIntent = new Intent(context, MovieActivity.class);
     PendingIntent appPendingIntent =
         PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-    views.setPendingIntentTemplate(R.id.widgetListView, appPendingIntent);
-    // TODO: Favourite Activity
-    // TODO: Or take them to detail activity
-
+    views.setPendingIntentTemplate(R.id.widget_list_view, appPendingIntent);
     return views;
   }
 
   private static RemoteViews getViewForSmallerWidget(Context context) {
 
-    RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.layout_widget_simple);
+    RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_small_layout);
 
-    Intent intent1 = new Intent(context, HomeActivity.class);
-    PendingIntent pendingIntent1 = PendingIntent.getActivity(context, 0, intent1, 0);
-    views.setOnClickPendingIntent(R.id.widgetImageView, pendingIntent1);
+    Intent homeIntent = new Intent(context, HomeActivity.class);
+    PendingIntent homePendingIntent = PendingIntent.getActivity(context, 0, homeIntent, 0);
+    views.setOnClickPendingIntent(R.id.widget_image_view, homePendingIntent);
 
-    // TODO: Favourite Activity
-    // TODO: Or take them to detail activity
-    Intent intent2 = new Intent(context, MovieActivity.class);
-    PendingIntent pendingIntent2 = PendingIntent.getActivity(context, 0, intent2, 0);
-    views.setOnClickPendingIntent(R.id.clickTextView, pendingIntent2);
+    Intent movieIntent = new Intent(context, MovieActivity.class);
+    PendingIntent moviePendingIntent = PendingIntent.getActivity(context, 0, movieIntent, 0);
+    views.setOnClickPendingIntent(R.id.widget_click_text_view, moviePendingIntent);
 
     return views;
   }

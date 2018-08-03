@@ -77,16 +77,5 @@ public class FavouriteMovieWidgetService extends RemoteViewsService {
       return true;
     }
 
-    //private void loadFavouriteMovies() {
-    //  if (SharedPreference.getSharedPreferences(context) != null) {
-    //    moviesList = Arrays.asList(SharedPreference.getSharedPreferences(context));
-    //    for (Movie i : moviesList) {
-    //      String title = i.getTitle();
-    //      movies.add(title);
-    //    }
-    //  } else {
-    //    movies.add("No ingredients");
-    //  }
-    //}
   }
 }

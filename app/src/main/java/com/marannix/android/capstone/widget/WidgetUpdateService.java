@@ -56,6 +56,6 @@ public class WidgetUpdateService extends IntentService {
 
     FavouriteMovieWidgetProvider.updateAllAppWidget(this, appWidgetManager, appWidgetIds);
 
-    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
+    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list_view);
   }
 }
