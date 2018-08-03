@@ -20,10 +20,12 @@ public class ArtworkAdapter extends RecyclerView.Adapter<ArtworkAdapter.ViewHold
   private static final String POSTER_SIZE = "w500";
   private Context context;
   private List<Poster> images;
+  private String title;
 
-  public void setArtworks(List<Poster> images, Context context) {
+  public void setArtworks(List<Poster> images, Context context, String title) {
     this.images = images;
     this.context = context;
+    this.title = title;
     notifyDataSetChanged();
   }
 
@@ -36,6 +38,7 @@ public class ArtworkAdapter extends RecyclerView.Adapter<ArtworkAdapter.ViewHold
     final Poster poster = images.get(position);
     final String path = MOVIE_URL + POSTER_SIZE + poster.getPosterPath();
     Picasso.get().load(path).into(holder.posterImage);
+    holder.posterImage.setContentDescription(String.format(title, R.string.artwork_content_description));
   }
 
   @Override public int getItemCount() {

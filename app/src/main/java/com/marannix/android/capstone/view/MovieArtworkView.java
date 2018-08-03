@@ -24,8 +24,8 @@ public class MovieArtworkView {
     initVideoAdapter();
   }
 
-  public void setArtwork(List<Poster> posters, Context context) {
-    artworkAdapter.setArtworks(posters, context);
+  public void setArtwork(List<Poster> posters, Context context, String title) {
+    artworkAdapter.setArtworks(posters, context, title);
   }
 
   private void initVideoAdapter() {

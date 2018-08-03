@@ -107,7 +107,7 @@ public class MoviePresenter {
           }
 
           @Override public void onNext(ImageResponse imageResponse) {
-            movieArtworkView.setArtwork(imageResponse.getPosters(), context);
+            movieArtworkView.setArtwork(imageResponse.getPosters(), context, movie.getTitle());
           }
         });
   }
