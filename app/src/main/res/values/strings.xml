@@ -9,4 +9,5 @@
   <string name="widget_favourite_movies_title">Favourite Movies</string>
   <string name="widget_test_item_text">Ant Man</string>
   <string name="artwork_content_description">This is %s poster</string>
+  <string name="home_movies_title">Movies</string>
 </resources>
