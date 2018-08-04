@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +44,6 @@ public class UpcomingMovieAdapter extends RecyclerView.Adapter<UpcomingMovieAdap
   @Override public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
     final Movie movie = upcomingMovies.get(position);
     final String path = MOVIE_URL + POSTER_SIZE + movie.getPosterPath();
-    Log.d("joshua1", "onBindViewHolder: " + movie.getId());
     Picasso.get().load(path).into(holder.image);
     holder.title.setText(movie.getTitle());
 

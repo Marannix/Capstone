@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import com.marannix.android.capstone.data.FavouriteContract;
 import com.marannix.android.capstone.data.model.Movie;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import java.util.List;
 
 public class FavouriteDbHelper extends SQLiteOpenHelper {
 
-  private static final String TAG = "FAVOURITE";
   private static final String DATABASE_NAME = "favourite.db";
   private static final int DATABASE_VERSION = 1;
 
@@ -121,8 +119,6 @@ public class FavouriteDbHelper extends SQLiteOpenHelper {
 
     cursor.close();
     database.close();
-
-    Log.d(TAG, "getAllFavourite: " + favouriteList);
     return favouriteList;
   }
 
