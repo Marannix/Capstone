@@ -1,5 +1,6 @@
 package com.marannix.android.capstone.api;
 
+import com.marannix.android.capstone.BuildConfig;
 import com.marannix.android.capstone.response.CreditsResponse;
 import com.marannix.android.capstone.response.ImageResponse;
 import com.marannix.android.capstone.response.MovieResponse;
@@ -12,11 +13,7 @@ import rx.Observable;
 
 public interface MovieApi {
 
-  //TODO: Refactor id to movie_id
-
-  String apiKey = "";
-
-  String authentication = "api_key=" + apiKey;
+  String authentication = "api_key=" + BuildConfig.API_KEY;
 
   @GET("movie/popular?" + authentication) Call<MovieResponse> getPopularMovies();
 

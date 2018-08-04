@@ -36,6 +36,10 @@ android {
       signingConfig signingConfigs.config
     }
   }
+
+  buildTypes.each{
+    it.buildConfigField 'String', "API_KEY", API_KEY
+  }
 }
 
 dependencies {
