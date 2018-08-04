@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.database.DataSnapshot;
@@ -78,7 +79,8 @@ public class UpcomingMovieFragment extends Fragment {
           }
 
           @Override public void onError(Throwable e) {
-
+            Toast.makeText(getContext(), "There was an error loading upcoming movies, please check API Key has been inserted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please check internet connection", Toast.LENGTH_SHORT).show();
           }
 
           @Override public void onNext(MovieResponse movies) {
