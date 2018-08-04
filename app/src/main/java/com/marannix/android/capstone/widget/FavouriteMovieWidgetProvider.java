@@ -18,7 +18,7 @@ import com.marannix.android.capstone.activity.MovieActivity;
 public class FavouriteMovieWidgetProvider extends AppWidgetProvider {
 
   private final static int WIDGET_MIN_WIDTH = 150;
-  private final static int WIDGET_MIN_HEIGHT = 150;
+  private final static int WIDGET_MIN_HEIGHT = 300;
 
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {

@@ -14,10 +14,6 @@ import com.marannix.android.capstone.repository.MovieRepository;
 
 public class HomeActivity extends BaseActivity {
 
-  //TODO: Create Utils
-  // https://stackoverflow.com/questions/37071342/how-to-create-rtl-viewpager
-  // Set up RTL for viewpager
-  // https://www.youtube.com/watch?v=fGcMLu1GJEc  (NavigationDrawer)
   @BindView(R.id.tabs) TabLayout tabs;
   @BindView(R.id.viewPager) ViewPager viewPager;
 
