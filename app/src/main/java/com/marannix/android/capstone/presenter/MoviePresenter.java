@@ -83,8 +83,8 @@ public class MoviePresenter {
           }
 
           @Override public void onError(Throwable e) {
-            Toast.makeText(context, "There was an error loading movie trailers, please check API Key has been inserted", Toast.LENGTH_SHORT).show();
-            Toast.makeText(context, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.api_error_message_movie_trailers, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.error_message_internet_connection, Toast.LENGTH_SHORT).show();
           }
 
           @Override public void onNext(TrailerResponse trailerResponse) {
@@ -103,8 +103,8 @@ public class MoviePresenter {
           }
 
           @Override public void onError(Throwable e) {
-            Toast.makeText(context, "There was an error loading movie image, please check API Key has been inserted", Toast.LENGTH_SHORT).show();
-            Toast.makeText(context, "Please check internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.error_message_loading_api_key_movie_image_, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.error_message_internet_connection, Toast.LENGTH_SHORT).show();
           }
 
           @Override public void onNext(ImageResponse imageResponse) {

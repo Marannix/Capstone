@@ -79,8 +79,8 @@ public class NowPlayingMovieFragment extends Fragment {
           }
 
           @Override public void onError(Throwable e) {
-            Toast.makeText(getContext(), "There was an error loading Now Playing Movies, please check API Key has been inserted", Toast.LENGTH_SHORT).show();
-            Toast.makeText(getContext(), "Please check internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.error_message_api_key_loading_now_playing_movies, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.error_message_internet_connection, Toast.LENGTH_SHORT).show();
           }
 
           @Override public void onNext(MovieResponse nowPlayingResponse) {

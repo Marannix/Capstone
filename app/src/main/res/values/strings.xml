@@ -10,4 +10,9 @@
   <string name="widget_test_item_text">Ant Man</string>
   <string name="artwork_content_description">This is %s poster</string>
   <string name="home_movies_title">Movies</string>
+  <string name="api_error_message_movie_trailers">There was an error loading movie trailers, please check API Key has been inserted</string>
+  <string name="error_message_internet_connection">Please check internet connection</string>
+  <string name="error_message_api_key_loading_upcoming_movies">There was an error loading upcoming movies, please check API Key has been inserted</string>
+  <string name="error_message_api_key_loading_now_playing_movies">There was an error loading Now Playing Movies, please check API Key has been inserted</string>
+  <string name="error_message_loading_api_key_movie_image_">There was an error loading movie image, please check API Key has been inserted</string>
 </resources>
