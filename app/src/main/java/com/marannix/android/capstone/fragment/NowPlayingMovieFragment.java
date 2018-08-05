@@ -2,6 +2,7 @@ package com.marannix.android.capstone.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,8 @@ public class NowPlayingMovieFragment extends Fragment {
   private NowPlayingMovieAdapter adapter;
   private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
   private DatabaseReference moviesReference;
+  private GridLayoutManager layoutManager;
+  private Parcelable state;
 
   public NowPlayingMovieFragment() {
   }
@@ -62,11 +65,12 @@ public class NowPlayingMovieFragment extends Fragment {
   }
 
   private void initAdapter() {
-    GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+    layoutManager = new GridLayoutManager(getActivity(), 2);
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setHasFixedSize(true);
     adapter = new NowPlayingMovieAdapter((HomeActivity) getActivity());
     recyclerView.setAdapter(adapter);
+    layoutManager.onRestoreInstanceState(state);
   }
 
   private void retrieveNowPlayingMovies() {
@@ -79,8 +83,10 @@ public class NowPlayingMovieFragment extends Fragment {
           }
 
           @Override public void onError(Throwable e) {
-            Toast.makeText(getContext(), R.string.error_message_api_key_loading_now_playing_movies, Toast.LENGTH_SHORT).show();
-            Toast.makeText(getContext(), R.string.error_message_internet_connection, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.error_message_api_key_loading_now_playing_movies,
+                Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.error_message_internet_connection,
+                Toast.LENGTH_SHORT).show();
           }
 
           @Override public void onNext(MovieResponse nowPlayingResponse) {
@@ -109,5 +115,10 @@ public class NowPlayingMovieFragment extends Fragment {
 
       }
     });
+  }
+
+  @Override public void onPause() {
+    super.onPause();
+    state = layoutManager.onSaveInstanceState();
   }
 }

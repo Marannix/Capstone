@@ -2,6 +2,7 @@ package com.marannix.android.capstone.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -39,7 +40,8 @@ public class UpcomingMovieFragment extends Fragment {
   private UpcomingMovieAdapter adapter;
   private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
   private DatabaseReference moviesReference;
-
+  private GridLayoutManager layoutManager;
+  private Parcelable state;
   public UpcomingMovieFragment() {
   }
 
@@ -48,6 +50,7 @@ public class UpcomingMovieFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_upcoming_movies_page, container, false);
     ButterKnife.bind(this, rootView);
+    layoutManager = new GridLayoutManager(getActivity(), 2);
     moviesReference = rootRef.child("upcoming_movies");
     moviesReference.keepSynced(true);
     movieRepository = new MovieRepository();
@@ -62,11 +65,11 @@ public class UpcomingMovieFragment extends Fragment {
   }
 
   private void initUpcomingMovieAdapter() {
-    GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setHasFixedSize(true);
     adapter = new UpcomingMovieAdapter((HomeActivity) getActivity());
     recyclerView.setAdapter(adapter);
+    layoutManager.onRestoreInstanceState(state);
   }
 
   private void retrieveUpcomingMovies() {
@@ -109,5 +112,10 @@ public class UpcomingMovieFragment extends Fragment {
 
       }
     });
+  }
+
+  @Override public void onPause() {
+    super.onPause();
+    state = layoutManager.onSaveInstanceState();
   }
 }

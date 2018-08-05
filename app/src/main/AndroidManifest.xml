@@ -13,7 +13,8 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name=".activity.HomeActivity">
+    <activity android:name=".activity.HomeActivity"
+        android:configChanges="orientation|screenSize">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -23,6 +24,7 @@
     <activity android:name=".activity.BaseActivity"/>
     <activity
         android:name=".activity.MovieActivity"
+        android:configChanges="orientation|screenSize"
         android:theme="@style/MovieTheme"/>
 
     <receiver android:name=".widget.FavouriteMovieWidgetProvider">
