@@ -16,7 +16,7 @@ android {
     config {
       keyAlias keystoreProperties['keyAlias']
       keyPassword keystoreProperties['keyPassword']
-      storeFile file(keystoreProperties['storeFile'])
+      storeFile file("$rootDir/app/keystore")
       storePassword keystoreProperties['storePassword']
     }
   }
