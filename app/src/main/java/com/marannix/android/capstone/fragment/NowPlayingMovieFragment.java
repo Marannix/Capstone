@@ -33,6 +33,7 @@ import rx.schedulers.Schedulers;
 
 public class NowPlayingMovieFragment extends Fragment {
 
+  private final static String KEY_INSTANCE_STATE_RV_POSITION = "position";
   @BindView(R.id.now_playing_recycler_View) RecyclerView recyclerView;
 
   private MovieRepository movieRepository;
@@ -51,6 +52,11 @@ public class NowPlayingMovieFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_now_playing_movies, container, false);
     ButterKnife.bind(this, rootView);
+
+    if (savedInstanceState != null) {
+      state = savedInstanceState.getParcelable(KEY_INSTANCE_STATE_RV_POSITION);
+    }
+
     moviesReference = rootRef.child("now_playing_movies");
     moviesReference.keepSynced(true);
     movieRepository = new MovieRepository();
@@ -117,8 +123,9 @@ public class NowPlayingMovieFragment extends Fragment {
     });
   }
 
-  @Override public void onPause() {
-    super.onPause();
-    state = layoutManager.onSaveInstanceState();
+  @Override public void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putParcelable(KEY_INSTANCE_STATE_RV_POSITION, layoutManager.onSaveInstanceState());
   }
+
 }

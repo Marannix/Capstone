@@ -33,6 +33,7 @@ import rx.schedulers.Schedulers;
 
 public class UpcomingMovieFragment extends Fragment {
 
+  private final static String KEY_INSTANCE_STATE_RV_POSITION = "position";
   @BindView(R.id.upcomingMovieRecyclerView) RecyclerView recyclerView;
 
   private MovieRepository movieRepository;
@@ -50,6 +51,11 @@ public class UpcomingMovieFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_upcoming_movies_page, container, false);
     ButterKnife.bind(this, rootView);
+
+    if (savedInstanceState != null) {
+      state = savedInstanceState.getParcelable(KEY_INSTANCE_STATE_RV_POSITION);
+    }
+
     layoutManager = new GridLayoutManager(getActivity(), 2);
     moviesReference = rootRef.child("upcoming_movies");
     moviesReference.keepSynced(true);
@@ -66,10 +72,13 @@ public class UpcomingMovieFragment extends Fragment {
 
   private void initUpcomingMovieAdapter() {
     recyclerView.setLayoutManager(layoutManager);
+    if (state != null) {
+      layoutManager.onRestoreInstanceState(state);
+    }
     recyclerView.setHasFixedSize(true);
     adapter = new UpcomingMovieAdapter((HomeActivity) getActivity());
     recyclerView.setAdapter(adapter);
-    layoutManager.onRestoreInstanceState(state);
+
   }
 
   private void retrieveUpcomingMovies() {
@@ -114,8 +123,8 @@ public class UpcomingMovieFragment extends Fragment {
     });
   }
 
-  @Override public void onPause() {
-    super.onPause();
-    state = layoutManager.onSaveInstanceState();
+  @Override public void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putParcelable(KEY_INSTANCE_STATE_RV_POSITION, layoutManager.onSaveInstanceState());
   }
 }
