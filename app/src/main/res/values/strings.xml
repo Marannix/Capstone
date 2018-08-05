@@ -15,4 +15,11 @@
   <string name="error_message_api_key_loading_upcoming_movies">There was an error loading upcoming movies, please check API Key has been inserted</string>
   <string name="error_message_api_key_loading_now_playing_movies">There was an error loading Now Playing Movies, please check API Key has been inserted</string>
   <string name="error_message_loading_api_key_movie_image_">There was an error loading movie image, please check API Key has been inserted</string>
+  <string name="widget_small_icon_text">Widget small icon</string>
+  <string name="movie_artwork_backdrop_text">movie artwork backdrop</string>
+  <string name="movie_poster_text">Movie poster</string>
+  <string name="now_playing_image_text">now playing image</string>
+  <string name="upcoming_movies_poster_text">Upcoming movies poster</string>
+  <string name="movie_thumbnail_text">movie thumbnail</string>
+  <string name="movie_artwork_poster_text">movie artwork poster</string>
 </resources>

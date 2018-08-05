@@ -10,6 +10,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
+      android:contentDescription="@string/widget_small_icon_text"
       android:src="@mipmap/ic_launcher"
       />
 
@@ -21,8 +22,8 @@
       android:layout_gravity="center_horizontal"
       android:clickable="true"
       android:focusable="true"
-      android:padding="10dp"
       android:gravity="center"
+      android:padding="10dp"
       android:text="@string/widget_click_text"
       android:textColor="#000"
       android:textSize="16sp"

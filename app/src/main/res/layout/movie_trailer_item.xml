@@ -22,6 +22,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:srcCompat="@mipmap/ic_launcher"
+      android:contentDescription="@string/movie_thumbnail_text"
       />
 
   <TextView
