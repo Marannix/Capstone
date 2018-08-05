@@ -23,7 +23,7 @@
   <ListView
       android:id="@+id/widget_list_view"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:divider="#f0f0f0"
       android:dividerHeight="1dp"
       tools:listitem="@layout/favourite_movie_list_item_widget"

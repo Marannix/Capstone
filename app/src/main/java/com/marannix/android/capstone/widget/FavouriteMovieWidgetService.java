@@ -13,8 +13,7 @@ import java.util.Arrays;
 public class FavouriteMovieWidgetService extends RemoteViewsService {
 
   @Override public RemoteViewsFactory onGetViewFactory(Intent intent) {
-    return new MyRemoteViewsFactory(getApplicationContext(),
-        SharedPreference.getSharedPreferences(getApplicationContext()));
+    return new MyRemoteViewsFactory(getApplicationContext());
   }
 
   private class MyRemoteViewsFactory implements RemoteViewsFactory {
@@ -22,21 +21,20 @@ public class FavouriteMovieWidgetService extends RemoteViewsService {
     private ArrayList<Movie> moviesList;
     private Context context;
 
-    public MyRemoteViewsFactory(Context context, Movie[] sharedPreferences) {
+    public MyRemoteViewsFactory(Context context) {
       this.context = context;
-      this.moviesList = new ArrayList<>(Arrays.asList(sharedPreferences));
     }
 
     @Override public void onCreate() {
-
+      loadFavouriteMovies();
     }
 
     @Override public void onDataSetChanged() {
-
+      loadFavouriteMovies();
     }
 
     @Override public void onDestroy() {
-
+      if (moviesList.size() != 0) moviesList.clear();
     }
 
     @Override public int getCount() {
@@ -77,5 +75,10 @@ public class FavouriteMovieWidgetService extends RemoteViewsService {
       return true;
     }
 
+    private void loadFavouriteMovies() {
+      if (SharedPreference.getSharedPreferences(context) != null) {
+        moviesList = new ArrayList<>(Arrays.asList(SharedPreference.getSharedPreferences(context)));
+      }
+    }
   }
 }

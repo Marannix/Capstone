@@ -49,7 +49,6 @@ public class MoviePresenter {
     setFavouriteDbHelper();
     setFavouriteFabIcon();
     setFavouriteMovies();
-    updateWidget();
   }
 
   private void initRepository() {
@@ -126,6 +125,7 @@ public class MoviePresenter {
         } else {
           removeMovieFromDatabase();
         }
+        updateWidget();
       }
     });
   }

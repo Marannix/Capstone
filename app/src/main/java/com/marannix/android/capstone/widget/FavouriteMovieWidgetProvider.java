@@ -22,7 +22,7 @@ public class FavouriteMovieWidgetProvider extends AppWidgetProvider {
 
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-    WidgetUpdateService.startActionUpdateAppWidgets(context, false);
+    WidgetUpdateService.startActionUpdateAppWidgets(context, true);
   }
 
   @Override
