@@ -122,6 +122,7 @@
       app:layout_anchor="@id/movie_appbar"
       app:layout_anchorGravity="bottom|right|end"
       android:elevation="6dp"
+      android:contentDescription="@string/FAB_favourite_button_text"
       />
 
 </android.support.design.widget.CoordinatorLayout>

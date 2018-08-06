@@ -22,4 +22,5 @@
   <string name="upcoming_movies_poster_text">Upcoming movies poster</string>
   <string name="movie_thumbnail_text">movie thumbnail</string>
   <string name="movie_artwork_poster_text">movie artwork poster</string>
+  <string name="FAB_favourite_button_text">Favourite Button</string>
 </resources>
